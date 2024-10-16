@@ -12,7 +12,7 @@ pipeline {
         stage('Secret Scanning with Gitleaks') {
             steps {
                 script {
-                    sh 'gitleaks detect --source=. --config=.gitleaks.toml -v --report-path=gitleaks-report.json'
+                    sh 'gitleaks detect --source=. -v --report-path=gitleaks-report.json'
                 }
             }
         }

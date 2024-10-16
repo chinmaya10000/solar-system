@@ -11,7 +11,6 @@ pipeline {
         }
         stage('Secret Scanning with Gitleaks') {
             steps {
-                // Run Gitleaks inside a Docker container
                 script {
                     sh 'gitleaks detect --source=. -v --report-path=gitleaks-report.json'
                 }

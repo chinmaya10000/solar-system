@@ -23,7 +23,7 @@ echo '<!DOCTYPE html>
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background: url("https://raw.githubusercontent.com/chinmaya10000/solar-system/main/images/background.png");
+			background: url("https://raw.githubusercontent.com/chinmaya10000/solar-system/main/images/background.gif");
 		}
 		
 /* 		.shadow {

@@ -68,7 +68,7 @@ pipeline {
             }
         }
         stage('Raise PR') {
-            stage {
+            steps {
                 script {
                     def prTitle = "Update image version to ${IMAGE_TAG}"
                     def prBody = "This PR updates the image version to ${IMAGE_TAG} for deployment."

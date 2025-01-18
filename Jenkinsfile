@@ -16,10 +16,14 @@ pipeline {
             }
         }
         stage('Build and Push Image') {
-            withCredentials([usernamePassword(credentialsId: 'docker-creds', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-                sh "echo $PASS | docker login -u $USER --password-stdin"
-                sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-creds', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                        sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                    }
+                }
             }
         }
     }

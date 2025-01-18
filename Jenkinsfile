@@ -60,6 +60,7 @@ pipeline {
                         sh 'git config --global user.email "jenkins@ci.com"'
                         sh 'git config --global user.name "jenkins"'
                         sh "git remote set-url origin https://${GITHUB_TOKEN}@github.com/chinmaya10000/gitops-argocd.git"
+                        sh 'git checkout feature/argocd-gitops'
                         sh 'git add .'
                         sh 'git commit -m "Updated image version for Build - $IMAGE_TAG"'
                         sh 'git push origin feature/argocd-gitops'

@@ -1,30 +1,26 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Clone') {
-            steps {
-                script {
-                    git branch: 'main', url: 'https://github.com/chinmaya10000/solar-system.git'
-                }
-            }
-        }
-        stage('Secret Scanning with Gitleaks') {
-            steps {
-                script {
-                    sh 'gitleaks detect --source=. -v --report-path=gitleaks-report.json'
-                }
-            }
-        }
+    environment {
+        IMAGE_NAME = 'chinmayapradhan/solar-system'
+        IMAGE_TAG = 'v9'
     }
 
-    post {
-        always {
-            // Archive the Gitleaks report in Jenkins
-            archiveArtifacts artifacts: 'gitleaks-report.json'
+    stages {
+        stage('Unit Tests') {
+            steps {
+                script {
+                    echo 'Implement unit tests if applicable.'
+                    echo 'This stage is a sample placeholder'
+                }
+            }
         }
-        failure {
-            echo 'Secrets detected by Gitleaks. Please check the report.'
+        stage('Build and Push Image') {
+            withCredentials([usernamePassword(credentialsId: 'docker-creds', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                sh "echo $PASS | docker login -u $USER --password-stdin"
+                sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+            }
         }
     }
 }
